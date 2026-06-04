@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import type { CodaOutputFormat } from '@/features/coda-notebook/types/coda.types'
 import type { JobStatus } from '@/features/coda-circuit/types/circuit.types'
+import { analyzeCircuit } from '@/features/coda-circuit/data/circuitAnalyzer'
 import type { QuantumResult } from '@/features/coda-circuit/data/sampleCircuits'
 
 export interface ResourceEstimation {
@@ -34,45 +35,24 @@ export function useCircuitEditor(
   const [jobStatus, setJobStatus] = useState<JobStatus>('idle')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const runAnalysis = useCallback(async () => {
+  const runAnalysis = useCallback(async (currentCode: string) => {
     setIsSimulating(true)
-    try {
-      const [simRes, estRes] = await Promise.all([
-        fetch('/api/coda/tools/simulate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({}),
-        }),
-        fetch('/api/coda/tools/estimate-resources', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({}),
-        }),
-      ])
-      if (simRes.ok) {
-        const data = (await simRes.json()) as { result: QuantumResult }
-        setSimulationResult(data.result)
-      }
-      if (estRes.ok) {
-        const data = (await estRes.json()) as { estimation: ResourceEstimation }
-        setResourceEstimation(data.estimation)
-      }
-    } catch {
-      // 프리뷰 모드: 네트워크 오류 무시
-    } finally {
-      setIsSimulating(false)
-    }
+    await new Promise((resolve) => setTimeout(resolve, 400))
+    const { resourceEstimation, simulationResult } = analyzeCircuit(currentCode)
+    setSimulationResult(simulationResult)
+    setResourceEstimation(resourceEstimation)
+    setIsSimulating(false)
   }, [])
 
   useEffect(() => {
-    void runAnalysis()
-  }, [runAnalysis])
+    void runAnalysis(initialCode)
+  }, [runAnalysis, initialCode])
 
   function setCode(newCode: string) {
     setCodeState(newCode)
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => {
-      void runAnalysis()
+      void runAnalysis(newCode)
     }, 300)
   }
 

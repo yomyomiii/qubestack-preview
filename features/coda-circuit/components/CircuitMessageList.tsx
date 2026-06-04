@@ -106,31 +106,29 @@ export function CircuitMessageList({ messages, mode, context = 'chat', pipelineS
             <div className="max-w-[70%] rounded-2xl rounded-tr-sm bg-[#635ADC] px-4 py-2.5">
               <p className="text-sm text-white">{msg.content}</p>
             </div>
+          ) : msg.mode === 'learn' ? (
+            <div className={context === 'panel' ? 'w-[90%]' : 'w-[60%]'}>
+              <div className="rounded-xl border border-[#D8D5F7] bg-[#EEEDFB] px-4 py-3">
+                <p className="mb-1.5 text-xs font-medium text-[#635ADC]">Quda</p>
+                <MarkdownText content={msg.content} />
+              </div>
+            </div>
           ) : (
-            <div className="w-full max-w-[90%]">
-              {msg.mode === 'learn' ? (
-                <div className="rounded-xl border border-[#D8D5F7] bg-[#EEEDFB] px-4 py-3">
-                  <p className="mb-1.5 text-xs font-medium text-[#635ADC]">Quda</p>
-                  <MarkdownText content={msg.content} />
-                </div>
+            <div className={context === 'panel' ? 'w-[90%]' : 'w-[60%]'}>
+              <p className="mb-1.5 text-xs font-medium text-gray-500">Quda</p>
+              {msg.hasError ? (
+                <Card variant="error">
+                  <p className="text-sm text-[#635ADC]">
+                    {msg.errorMessage ?? '회로 생성 중 오류가 발생했습니다.'}
+                  </p>
+                </Card>
               ) : (
-                <>
-                  <p className="mb-1.5 text-xs font-medium text-gray-500">Quda</p>
-                  {msg.hasError ? (
-                    <Card variant="error">
-                      <p className="text-sm text-[#635ADC]">
-                        {msg.errorMessage ?? '회로 생성 중 오류가 발생했습니다.'}
-                      </p>
-                    </Card>
-                  ) : (
-                    <CircuitCodeBlock
-                      code={msg.content}
-                      format={msg.format ?? 'cuda-q'}
-                      isStreaming={msg.isStreaming}
-                      context={context}
-                    />
-                  )}
-                </>
+                <CircuitCodeBlock
+                  code={msg.content}
+                  format={msg.format ?? 'cuda-q'}
+                  isStreaming={msg.isStreaming}
+                  context={context}
+                />
               )}
             </div>
           )}
@@ -139,7 +137,7 @@ export function CircuitMessageList({ messages, mode, context = 'chat', pipelineS
       {/* 파이프라인 진행 버블 — 생성 중일 때만 표시 */}
       {isPipelineVisible && pipelineStages && (
         <div className="flex justify-start">
-          <div className="w-full max-w-[90%]">
+          <div className={context === 'panel' ? 'max-w-[90%]' : 'max-w-6xl'}>
             <p className="mb-1.5 text-xs font-medium text-gray-500">Quda</p>
             <div className="rounded-xl border border-gray-100 bg-gray-50 px-4 py-3">
               <div className="flex flex-col gap-2">
