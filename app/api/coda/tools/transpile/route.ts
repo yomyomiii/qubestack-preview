@@ -1,3 +1,4 @@
+export const dynamic = 'force-static'
 import { NextRequest, NextResponse } from 'next/server'
 import { getSampleCode } from '@/features/coda-circuit/data/sampleCircuits'
 import type { CodaOutputFormat } from '@/features/coda-notebook/types/coda.types'

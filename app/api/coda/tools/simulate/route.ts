@@ -1,3 +1,4 @@
+export const dynamic = 'force-static'
 import { NextRequest, NextResponse } from 'next/server'
 import { SIMULATION_RESULT } from '@/features/coda-circuit/data/sampleCircuits'
 

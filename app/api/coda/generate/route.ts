@@ -1,3 +1,4 @@
+export const dynamic = 'force-static'
 import { NextRequest, NextResponse } from 'next/server'
 import { callCodaAgentsStream } from '@/lib/coda/coda.client'
 import type { CodaGenerateRequest } from '@/features/coda-notebook/types/coda.types'
