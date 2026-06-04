@@ -21,7 +21,7 @@ const FORMAT_OPTIONS: { value: CodaOutputFormat; label: string }[] = [
   { value: 'pyquil', label: 'PyQuil' },
 ]
 
-const BUILD_PLACEHOLDER = '예) 3큐비트 벨 상태를 CUDA-Q로 만들어줘'
+const BUILD_PLACEHOLDER = '예) 3큐비트 벨 상태를 만들어줘'
 const LEARN_PLACEHOLDER = '예) 양자 얽힘의 원리를 설명해줘'
 
 export function CircuitInputBar({ disabled, isStreaming, mode, onModeChange, onSend }: CircuitInputBarProps) {
