@@ -141,28 +141,34 @@ export function CircuitCodeBlock({ code, format, isStreaming, context = 'chat' }
     <Card variant="code">
       {/* 헤더 */}
       {isDone && (
-        <div className={`flex flex-wrap items-center gap-x-2 gap-y-1.5 bg-white px-3 py-2 transition-all ${isScrolled ? 'border-b border-gray-200' : ''}`}>
-          <span className="whitespace-nowrap text-xs font-semibold text-gray-500">생성된 회로</span>
-          <div className="ml-auto flex flex-wrap items-center gap-1">
-            {isTranspiling && (
-              <span className="mr-1 flex items-center gap-1 text-xs text-gray-400">
-                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#635ADC]" />
-                변환 중
-              </span>
-            )}
-            <select
-              value={currentFormat}
-              onChange={(e) => handleFormatChange(e.target.value as CodaOutputFormat)}
-              disabled={isTranspiling}
-              className="whitespace-nowrap rounded-md border border-gray-200 bg-white px-2 py-1.5 text-xs font-medium text-gray-600 outline-none cursor-pointer hover:bg-gray-50 disabled:opacity-50 transition-colors"
-              aria-label="포맷 변환"
-            >
-              {FORMAT_OPTIONS.map(([val, label]) => (
-                <option key={val} value={val}>
-                  {isTranspiling && val === currentFormat ? `${label} (변환 중…)` : label}
-                </option>
-              ))}
-            </select>
+        <div className={`bg-white px-3 pt-2 pb-2 transition-all ${isScrolled ? 'border-b border-gray-200' : ''}`}>
+          {/* 1행: 타이틀 + 포맷 변환 */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-gray-500">생성된 회로</span>
+            <div className="flex items-center gap-1.5">
+              {isTranspiling && (
+                <span className="flex items-center gap-1 text-xs text-gray-400">
+                  <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#635ADC]" />
+                  변환 중
+                </span>
+              )}
+              <select
+                value={currentFormat}
+                onChange={(e) => handleFormatChange(e.target.value as CodaOutputFormat)}
+                disabled={isTranspiling}
+                className="whitespace-nowrap rounded-md border border-gray-200 bg-white px-2 py-1.5 text-xs font-medium text-gray-600 outline-none cursor-pointer hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                aria-label="포맷 변환"
+              >
+                {FORMAT_OPTIONS.map(([val, label]) => (
+                  <option key={val} value={val}>
+                    {isTranspiling && val === currentFormat ? `${label} (변환 중…)` : label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {/* 2행: 액션 버튼 */}
+          <div className="mt-1.5 flex items-center justify-end gap-1">
             <Button
               variant="secondary"
               type="button"
