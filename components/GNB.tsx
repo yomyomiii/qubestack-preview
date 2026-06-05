@@ -62,9 +62,8 @@ export function GNB() {
               <path d="M12 2V22M3 7L21 17M21 7L3 17" stroke="#635ADC" strokeWidth="0.9" strokeLinejoin="round" opacity="0.35"/>
             </svg>
           </div>
-          <div className="flex items-baseline gap-1.5 min-w-0">
-            <p className="text-base font-bold tracking-tight text-gray-900">QubeStack</p>
-            <p className="text-xs font-semibold text-gray-400">2.0</p>
+          <div className="flex flex-col min-w-0">
+            <p className="text-sm font-bold tracking-tight text-gray-900">QubeStack 2.0 <span className="text-[#635ADC]">×</span> Coda</p>
           </div>
         </div>
       </div>
