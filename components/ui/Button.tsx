@@ -1,6 +1,6 @@
 import React from 'react'
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'status'
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'status' | 'icon'
 type ButtonSize = 'sm' | 'md' | 'lg'
 type StatusColor = 'submitting' | 'queued' | 'running' | 'complete'
 
@@ -40,6 +40,8 @@ export function Button({
     base = `whitespace-nowrap rounded-md ${pad} text-xs font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-800 transition-colors`
   } else if (variant === 'danger') {
     base = 'whitespace-nowrap rounded-md border border-[#D8D5F7] px-2.5 py-1.5 text-xs font-medium text-[#635ADC] hover:bg-[#EEEDFB] disabled:opacity-50 transition-colors'
+  } else if (variant === 'icon') {
+    base = 'flex items-center justify-center rounded-md p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-700 disabled:opacity-50 transition-colors'
   } else {
     const colorClass = statusColor ? STATUS_COLOR_CLASSES[statusColor] : STATUS_COLOR_CLASSES.submitting
     base = `whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-medium disabled:opacity-50 transition-colors ${colorClass}`
