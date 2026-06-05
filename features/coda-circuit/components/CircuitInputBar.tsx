@@ -6,6 +6,22 @@ import type { CodaMode } from '../types/circuit.types'
 import { Button } from '@/components/ui/Button'
 import { ModeToggle } from './ModeToggle'
 
+function IconSend() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 13V3M4 7L8 3L12 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
+function IconStop() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="4" y="4" width="8" height="8" rx="1.5" fill="currentColor"/>
+    </svg>
+  )
+}
+
 interface CircuitInputBarProps {
   disabled: boolean
   isStreaming: boolean
@@ -69,7 +85,7 @@ export function CircuitInputBar({ disabled, isStreaming, mode, onModeChange, onS
         <ModeToggle mode={mode} onChange={onModeChange} disabled={disabled || isStreaming} />
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 focus-within:border-gray-300 focus-within:bg-white transition-colors">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white focus-within:border-gray-300 transition-colors">
         {/* 입력 영역 */}
         <textarea
           ref={textareaRef}
@@ -109,9 +125,10 @@ export function CircuitInputBar({ disabled, isStreaming, mode, onModeChange, onS
             type="submit"
             disabled={!canSend}
             aria-label={isStreaming ? '중지' : '전송'}
-            className="shrink-0"
+            title={isStreaming ? '중지' : '전송'}
+            className="shrink-0 !px-2.5 !py-2"
           >
-            {isStreaming ? '중지' : '전송'}
+            {isStreaming ? <IconStop /> : <IconSend />}
           </Button>
         </div>
       </div>

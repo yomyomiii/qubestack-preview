@@ -147,7 +147,7 @@ export default function ExtensionPage() {
         </div>
 
         {/* ── Quda AI 패널 (LNB 챗봇 클릭으로 열린 형태) ── */}
-        <div className="flex w-72 shrink-0 flex-col border-r border-gray-300 bg-white">
+        <div className="flex w-80 shrink-0 flex-col border-r border-gray-300 bg-white">
           <CircuitBuilder variant="panel" />
         </div>
 

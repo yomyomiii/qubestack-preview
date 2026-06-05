@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
 function IconBuilder() {
@@ -49,11 +49,10 @@ const NAV_ITEMS = [
 
 export function GNB() {
   const pathname = usePathname()
-  const router = useRouter()
   const [pendingHref, setPendingHref] = useState<string | null>(null)
 
   return (
-    <aside className="flex w-48 shrink-0 flex-col border-r border-gray-200 bg-white">
+    <aside className="flex w-64 shrink-0 flex-col border-r border-gray-200 bg-white">
       {/* 브랜드 */}
       <div className="px-4 py-4">
         <div className="flex items-center gap-2.5">
@@ -75,7 +74,8 @@ export function GNB() {
       {/* 네비게이션 */}
       <nav className="flex flex-col gap-0.5 p-2 pt-3 flex-1">
         {NAV_ITEMS.map(({ label, href, icon, preview }) => {
-          const active = pathname === href || (href === '/extension' && pathname === '/')
+          const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '')
+          const active = normalizedPath === href || (href === '/extension' && normalizedPath === '/')
           const baseClass = `flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors text-left ${
             active
               ? 'bg-[#635ADC] text-white'
@@ -118,8 +118,7 @@ export function GNB() {
               <button
                 type="button"
                 onClick={() => {
-                  router.push(pendingHref)
-                  setPendingHref(null)
+                  window.location.href = '/qubestack-preview' + pendingHref
                 }}
                 className="w-full rounded-lg bg-[#635ADC] px-3 py-2 text-xs font-medium text-white hover:bg-[#5249C5] transition-colors"
               >

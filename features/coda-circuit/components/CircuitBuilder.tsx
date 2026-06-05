@@ -8,6 +8,15 @@ import type { CodaMode } from '../types/circuit.types'
 import type { CodaOutputFormat } from '@/features/coda-notebook/types/coda.types'
 import { Button } from '@/components/ui/Button'
 
+function IconReset() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M3 2v6h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3.51 15a9 9 0 1 0 2.13-9.36L3 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
 interface CircuitBuilderProps {
   variant?: 'default' | 'panel'
 }
@@ -41,12 +50,13 @@ export function CircuitBuilder({ variant = 'default' }: CircuitBuilderProps) {
       <div className="flex shrink-0 items-center justify-between border-b border-gray-200 bg-white px-4 py-3">
         <span className="text-sm font-semibold text-gray-800">Learner/Builder</span>
         <Button
-          variant="secondary"
+          variant="icon"
           type="button"
           onClick={clearHistory}
           disabled={messages.length === 0}
+          title="초기화"
         >
-          초기화
+          <IconReset />
         </Button>
       </div>
 
