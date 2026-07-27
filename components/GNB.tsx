@@ -117,7 +117,7 @@ export function GNB() {
               <button
                 type="button"
                 onClick={() => {
-                  window.location.href = '/qubestack-preview' + pendingHref
+                  window.location.href = '/QubeStack-Coda' + pendingHref
                 }}
                 className="w-full rounded-lg bg-[#635ADC] px-3 py-2 text-xs font-medium text-white hover:bg-[#5249C5] transition-colors"
               >
