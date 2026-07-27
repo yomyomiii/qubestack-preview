@@ -39,11 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# tooling / planning docs
-AGENTS.md
-CLAUDE.md
-.claude/
-.bkit*
-.obsidian/
-docs/
